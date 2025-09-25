@@ -28,5 +28,17 @@ class User {
         return $stmt->execute();
     }
 
-   
+    public function update($id, $name, $email) {
+        $sql = "UPDATE " . $this->table . " SET name = ?, email = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ssi", $name, $email, $id);
+        return $stmt->execute();
+    }
+
+    public function delete($id) {
+        $sql = "DELETE FROM " . $this->table . " WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        return $stmt->execute();
+    }
 }
